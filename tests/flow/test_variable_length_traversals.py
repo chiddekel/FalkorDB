@@ -548,3 +548,10 @@ class testVariableLengthTraversals(FlowTestsBase):
         count = self.graph.query(q).result_set[0][0]
         self.env.assertEquals(count, 16)
 
+    # Regression for https://github.com/FalkorDB/FalkorDB/issues/636
+    def test17_self_alias_varlen_different_labels(self):
+        self.graph.delete()
+        self.graph.query("CREATE (:A), (:B)<-[:R0]-()<-[:R1]-()")
+        result = self.graph.query("MATCH (n:A)<-[*]-(n:Z) RETURN 1")
+        self.env.assertEquals(result.result_set, [])
+

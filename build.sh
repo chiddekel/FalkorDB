@@ -1172,7 +1172,7 @@ build_dependencies() {
 # Prepare arguments to pass to CMake
 #-----------------------------------------------------------------------------
 prepare_cmake_arguments() {
-    CMAKE_ARGS=()
+    CMAKE_ARGS=(-DCMAKE_POLICY_VERSION_MINIMUM=3.5)
 
     # Build type debug if specified or using a sanitizer
     if [[ "$DEBUG" == "1" || -n "$SAN" ]]; then
